@@ -14,11 +14,11 @@ class CreateDaysInfosTable extends Migration
     public function up()
     {
         Schema::create('days_infos', function (Blueprint $table) {
-            $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('user_id');
             $table->json('info');
             $table->timestamps();
 
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

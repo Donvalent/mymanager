@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Days_info extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable
      *

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Position;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\App;
@@ -18,11 +19,6 @@ class UserFactory extends Factory
      */
     protected $model = User::class;
 
-    public $genders = [
-        'Male',
-        'Female'
-    ];
-
     /**
      * Define the model's default state.
      *
@@ -30,9 +26,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $genders = [
+            'Male',
+            'Female'
+        ];
+
         return [
             'name' => $this->faker->name,
-            'gender' => $this->genders[array_rand($this->genders)],
+            'gender' => $genders[array_rand($genders)],
             'email' => $this->faker->unique()->safeEmail,
             'position' => Position::factory(),
             'phone' => $this->faker->tollFreePhoneNumber,
