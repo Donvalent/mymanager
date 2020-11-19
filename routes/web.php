@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/departments','App\Http\Controllers\DepartmentController@index')->name('departments');
 
