@@ -20,13 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('position');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('position')->references('id')->on('positions')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('positions')->onDelete('cascade');
         });
         Schema::enableForeignKeyConstraints();
     }

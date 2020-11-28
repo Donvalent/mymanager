@@ -1,0 +1,38 @@
+div.content {
+    margin-left: 200px;
+    padding: 5px 10px;
+    height: 100%;
+}
+
+a, a:hover {
+    color: black;
+}
+
+.sidenav{
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidenav a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.sidenav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.sidenav a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+

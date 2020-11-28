@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function position() : HasOne
     {
-        return $this->hasOne(Position::class);
+        return $this->hasOne(Position::class, 'id', 'id');
     }
 
     /**
@@ -58,9 +58,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function department()
+    public function departments()
     {
-        return $this->belongsToMany(Department::class, 'users_departments');
+        return $this->belongsToMany(Department::class, 'users_departments', 'employee_id');
     }
 
     /**

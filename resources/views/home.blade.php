@@ -9,7 +9,7 @@
             <tr>
                 <th scope="col">Сотрудники</th>
                 @foreach($departments as $department)
-                    <th scope="col"><a href="/departments/view/{{ $department->id }}">{{$department->title}}</a></th>
+                    <th scope="col"><a href="/departments/show/{{ $department->id }}">{{$department->title}}</a></th>
                 @endforeach
             </tr>
         </thead>

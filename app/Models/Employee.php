@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
@@ -55,13 +56,13 @@ class Employee extends Model
      */
     public function position() : HasOne
     {
-        return $this->hasOne(Position::class);
+        return $this->hasOne(Position::class, 'id', 'id');
     }
 
     /**
      * Relation to Department
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function departments()
     {
@@ -71,7 +72,7 @@ class Employee extends Model
     /**
      * Relation to Task
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function tasks()
     {
