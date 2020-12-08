@@ -89,12 +89,71 @@ class EmployeesController extends Controller
         return redirect()->route('employees.index');
     }
 
-    public function edit(Request $request) : View
+    /**
+     * Method for /edit route
+     *
+     * @param int $employeeId
+     * @param Request $request
+     * @return View
+     */
+    public function edit(int $employeeId, Request $request) : View
     {
-
+        $departments = Department::all();
+        $employee = Employee::with('position', 'departments')->find($employeeId);
 
         return view('employees/edit', [
-
+            'employee' => $employee,
+            'departments' => $departments,
         ]);
+    }
+
+    /**
+     * Updating employee data
+     *
+     * @param int $employeeId
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(int $employeeId, Request $request) : RedirectResponse
+    {
+        // Get departments list from request
+        $departments = array();
+        foreach ($request->departments as $departmentId)
+            array_push($departments, Department::find($departmentId));
+
+        // Add employee in db
+        $employee = Employee::with('position', 'departments')->find($employeeId);
+        $employee->name = $request->get('name');
+        $employee->gender = $request->get('gender');
+        $employee->email = $request->get('email');
+        $employee->phone = $request->get('phone');
+        $employee->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+
+        // Edit position in employee
+        $employee->position()->update([
+            'title' => $request->get('position_title'),
+            'salary' => $request->get('position_salary')
+        ]);
+
+        $employee->save();
+
+        // Add departments in employee
+        $employee->departments()->detach();
+
+        $employee->departments()->saveMany($departments);
+
+        return redirect()->route('employees.index');
+    }
+
+    /**
+     * Method for /destroy route
+     *
+     * @param int $employeeId
+     * @return RedirectResponse
+     */
+    public function destroy(int $employeeId)
+    {
+        $employee = Employee::find($employeeId)->delete();
+        return redirect()->route('employees.index');
     }
 }

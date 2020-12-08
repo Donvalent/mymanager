@@ -35,4 +35,9 @@ a, a:hover {
     color: white;
 }
 
+.delete {
+    background: transparent;
+    border: none;
+}
+
 

@@ -19,12 +19,14 @@
                 <!-- Abbreviation -->
                 <td><a href="/employees/view/{{ $employee->id }}">{{ $employee->name }}</a></td>
                 <!-- Fill table -->
+{{--                TODO: Доделать эту шляпу--}}
                 @foreach($departments as $department)
                     @foreach($employee->departments as $employeeDepartment)
-                        @if($employeeDepartment->title == $department->title)
-                            <td>+</td>
+                        @if($employeeDepartment->id != $department->id)
+                            <td>-</td>
                         @else
-                            <td> </td>
+                            <td>+</td>
+                            @break
                         @endif
                     @endforeach
                 @endforeach

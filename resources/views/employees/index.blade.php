@@ -38,9 +38,11 @@
                 <a href="{{ route('employees.edit', $employee->id) }}">
                     <i class="fa fa-edit"></i>
                 </a>
-                <a href="{{ route('employees.destroy', $employee->id) }}">
+                {!!  Form::open(['method' => 'DELETE', 'route' => ['employees.destroy', $employee->id]]) !!}
+                <button class="delete" onclick="return confirm('Are you sure?')">
                     <i class="fa fa-ban"></i>
-                </a>
+                </button>
+                {!! Form::close() !!}
             </td>
         </tr>
         @endforeach
