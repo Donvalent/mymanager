@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\employeeRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Position;
@@ -60,7 +61,7 @@ class EmployeesController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(EmployeeRequest $request) : RedirectResponse
     {
         // Add new position for new employee
         $position = new Position();
@@ -96,7 +97,7 @@ class EmployeesController extends Controller
      * @param Request $request
      * @return View
      */
-    public function edit(int $employeeId, Request $request) : View
+    public function edit(int $employeeId) : View
     {
         $departments = Department::all();
         $employee = Employee::with('position', 'departments')->find($employeeId);
@@ -114,7 +115,7 @@ class EmployeesController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function update(int $employeeId, Request $request) : RedirectResponse
+    public function update(int $employeeId, EmployeeRequest $request) : RedirectResponse
     {
         // Get departments list from request
         $departments = array();
@@ -151,7 +152,7 @@ class EmployeesController extends Controller
      * @param int $employeeId
      * @return RedirectResponse
      */
-    public function destroy(int $employeeId)
+    public function destroy(int $employeeId) : RedirectResponse
     {
         $employee = Employee::find($employeeId)->delete();
         return redirect()->route('employees.index');

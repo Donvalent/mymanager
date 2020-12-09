@@ -34,7 +34,7 @@ a, a:hover {
     background-color: #555;
     color: white;
 }
-
+/*TODO: Сделать кнопку удаления красиво */
 .delete {
     background: transparent;
     border: none;

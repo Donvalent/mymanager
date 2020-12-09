@@ -18,7 +18,7 @@
         <tr>
             <td><a href="/departments/show/{{ $department->id }}">{{ $department->title }}</a></td>
             <td>{{ $department->users()->count() }}</td>
-            {{--      TODO: reilize max users salary in all departments      --}}
+            {{-- TODO: Реализовать вывод максимальной зарплаты каждого отдела --}}
 {{--            <td> {{ $department->users->position->max('salary') }} руб</td>--}}
             <td><a href="#"><i class="fa fa-minus-circle"></i></a></td>
         </tr>

@@ -15,7 +15,7 @@ class DepartmentsController extends Controller
     {
         $departments = Department::with('users.position')->get();
 
-        // TODO: realize max users salary in all departments
+        // TODO: Реализовать вывод максимальной зарплаты каждого отдела
 
         return view('departments\index', [
             'departments' => $departments,

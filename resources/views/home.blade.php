@@ -19,7 +19,7 @@
                 <!-- Abbreviation -->
                 <td><a href="/employees/view/{{ $employee->id }}">{{ $employee->name }}</a></td>
                 <!-- Fill table -->
-{{--                TODO: Доделать эту шляпу--}}
+                {{-- TODO: Таблица сотрудников и их отедлов (некорректно отображаются +) --}}
                 @foreach($departments as $department)
                     @foreach($employee->departments as $employeeDepartment)
                         @if($employeeDepartment->id != $department->id)

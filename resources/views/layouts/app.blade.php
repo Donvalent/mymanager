@@ -30,6 +30,7 @@
         </header>
 
         <div class="content">
+            @include('layouts.errors')
             @yield('content')
         </div>
     </body>
