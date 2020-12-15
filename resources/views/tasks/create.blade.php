@@ -1,43 +1,39 @@
-<!-- Header -->
-<?php  include_once(ROOT . '/view/layouts/header.html'); ?>
+<!-- Extends -->
+@extends('layouts.app')
 
-<!-- Main -->
-<form action="#" method="post">
-    <!-- Название -->
-    <div class="col-lg-2 col-md-2 col-sm form-group text-center">
-        <input type="text" name="title" placeholder="Название..." required>
-    </div>
-    <!-- Статус -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <select class="selectpicker" name="status" id="Select1" required>
-            <option>Не выполнено</option>
-            <option>Выполняется</option>
-            <option>Выполнено</option>
-        </select>
-    </div>
-    <!-- Сотрудник -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <select class="selectpicker" name="worker" id="Select1" required>
-        <?php foreach($employeesList as $employees => $employee):?>
-            <option><?php echo $employee['surname'] . " " . $employee['name'] . " " . $employee['lastname']; ?></option>
-        <?php endforeach;?>
-        </select>
-    </div>
-    <!-- Описание -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="description" placeholder="Описание..." required>
-    </div>
-    <!-- Даты -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="date" placeholder="Дата начала..." required>
+<!-- Body -->
+@section('content')
+
+    <div class="container">
+        <h3>Редактирование задачи</h3>
+        <div class="row">
+            <div class="col-md-12">
+                {!! Form::open(['route' => ['tasks.store'], 'method' => 'POST']) !!}
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Название..."><br>
+                        <textarea type="text" class="form-control" name="description" placeholder="Описание..."></textarea><br>
+                        <select class="selectpicker" name="status" id="status">
+                            <option value="Выполнено">Выполнено</option>
+                            <option value="Не выполнено">Не выполнено</option>
+                            <option value="В работе" selected>В работе</option>
+                            <option value="Приостановленно">Приостановленно</option>
+                        </select><br><br>
+                        <select name="employees[]" id="EmployeesMultiplie" class="selectpicker" multiple required>
+                            @foreach($employees as $employee)
+                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                            @endforeach
+                        </select><br><br>
+                        <div class="col-md-2">
+                            <p>Дата: </p><input type="date" name="date" class="form-control"><br>
+                            <p>Срок выполнения: </p><input type="date" name="deadline" class="form-control"><br>
+                        </div>
+
+                        <button class="btn btn-success" type="submit" name="submit">Добавить</button>
+                    </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="deadline" placeholder="Дата сдачи..." required>
-    </div>
-
-    <button class="btn btn-primary" type="submit" name="submit">Добавить</button>
-</form>
-
-<!-- Footer -->
-<?php  include_once(ROOT . '/view/layouts/footer.html'); ?>
+@endsection

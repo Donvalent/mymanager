@@ -31,7 +31,8 @@ class Days_InfoFactory extends Factory
         ];
 
         return [
-            'info' => json_encode($info)
+            'info' => json_encode($info),
+            'date' => $this->faker->date(),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +16,11 @@ class Days_info extends Model
      * @var array
      */
     protected $fillable = [
-        'info'
+        'info',
+        'date',
     ];
+
+    public $timestamps = false;
 
     /**
      * Relation to User
@@ -25,6 +29,6 @@ class Days_info extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

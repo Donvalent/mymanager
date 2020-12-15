@@ -27,8 +27,8 @@ class UserFactory extends Factory
     public function definition()
     {
         $genders = [
-            'Male',
-            'Female'
+            'Мужчина',
+            'Женщина'
         ];
 
         return [

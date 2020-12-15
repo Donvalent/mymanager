@@ -16,29 +16,38 @@
                     <p class="card-text">{{ $employee->position->salary }} руб.</p>
                     <p class="card-text">
                         @foreach($employee->departments as $department)
-                            <a href="{{ $department->id }}">{{ $department->title }}</a>
+                            <a href="{{ route('departments.show', $department->id) }}">{{ $department->title }}</a>
                         @endforeach
                     </p>
                 </div>
             </div>
         </div>
+        <div class="col-lg-8 col-mg-8">
+            {!! Form::open(['route' => ['employees.show', $employee->id], 'method' => 'GET']) !!}
+            @csrf
+            <input type="date" name="date" id="">
+            <button class="btn btn-success" type="submit">Показать</button>
+        {!! Form::close() !!}<br>
         <!-- Table of day info -->
-        <table class="table col-lg-8 col-mg-8">
-            <thead>
+            <table class="table">
+                <thead>
                 <tr scope="col">
                     <th scope="col">Программы</th>
                     <th scope="col">Время</th>
                 </tr>
-            </thead>
-            <tbody>
-<!--                --><?php //foreach($daysInfo as $processTitle => $time): ?>
-                    <tr>
-{{--                        <td><?php echo $processTitle; ?></td>--}}
-{{--                        <td><?php echo ($time < 60) ? $time . ' мин' : round($time / 60, 1) . ' ч'; ?></td>--}}
-                    </tr>
-<!--                --><?php //endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($employee->days_info as $day_info)
+                        @foreach($day_info->info as $program => $time)
+                            <tr>
+                                <td>{{ $program }}</td>
+                                <td>{{ $time }} ч.</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 @endsection

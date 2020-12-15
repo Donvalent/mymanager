@@ -1,37 +1,51 @@
-<!-- Header -->
-<?php  include_once(ROOT . '/view/layouts/header.html'); ?>
+<!-- Extends -->
+@extends('layouts.app')
 
-<!-- Main -->
-a<table class="table">
-    <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Номер</th>
-            <th scope="col">Сотрудник</th>
-            <th scope="col">Название</th>
-            <th scope="col">Статус</th>
-            <th scope="col">Дата</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach($taskList as $tasks => $task): ?>
-        <tr>
-            <td><a href="/tasks/view/<?php echo $task['id']; ?>"><i class="fa fa-share"></i></a></td>
-            <td><?php echo $task['id']; ?></td>
-            <td><a href="/employees/view/<?php echo $task['worker']['id']; ?>"><?php echo $task['worker']['shortName']; ?></a></td>
-            <td><?php echo $task['title']; ?></td>
-            <td><?php echo $task['status']['title']; ?></td>
-            <td><?php echo $task['date']; ?></td>
-            <td><a href="/tasks/edit/<?php echo $task['id']; ?>"><i class="fa fa-edit"></i></a></td>
-            <td><a href="#"><i class="fa fa-minus-circle"></i></a></td>
-        </tr>
-    <?php endforeach;?>
-    </tbody>
-</table>
+<!-- Body -->
+@section('content')
 
-<a href="/tasks/add" class="btn btn-primary"><i class="fa fa-plus"></i> Новая задача</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Дата создания</th>
+                <th scope="col">Сотрудники</th>
+                <th scope="col">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($tasks as $task)
+            <tr>
+                <td>{{ $task->id }}</td>
+                <td>{{ $task->title }}</td>
+                <td>{{ $task->status }}</td>
+                <td>{{ $task->date }}</td>
+                <td>
+                    @foreach($task->users as $employee)
+                        <a href="{{ route('employees.show', $employee->id) }}">{{ $employee->name }}</a>
+                        @if(!$loop->last) , @endif
+                    @endforeach
+                </td>
+                <td>
+                    <a href="{{ route('tasks.show', $task->id) }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="{{ route('tasks.edit', $task->id) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    {!!  Form::open(['method' => 'DELETE', 'route' => ['tasks.destroy', $task->id]]) !!}
+                    <button class="delete" onclick="return confirm('Are you sure?')">
+                        <i class="fa fa-ban"></i>
+                    </button>
+                    {!! Form::close() !!}
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
-<!-- Footer -->
-<?php  include_once(ROOT . '/view/layouts/footer.html'); ?>
+    <a href="{{ route('tasks.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Новая задача</a>
+
+@endsection

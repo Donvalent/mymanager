@@ -17,7 +17,7 @@
             @foreach($employees as $employee)
             <tr>
                 <!-- Abbreviation -->
-                <td><a href="/employees/view/{{ $employee->id }}">{{ $employee->name }}</a></td>
+                <td><a href="{{route('employees.show', $employee->id)}}">{{ $employee->name }}</a></td>
                 <!-- Fill table -->
                 {{-- TODO: Таблица сотрудников и их отедлов (некорректно отображаются +) --}}
                 @foreach($departments as $department)

@@ -17,7 +17,7 @@ Route::put('/departments/update/{id}', [DepartmentsController::class, 'update'])
 Route::delete('/departments/destroy/{id}', [DepartmentsController::class, 'destroy'])->name('departments.destroy');
 
 Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
-Route::get('/employees/show/{id}',[EmployeesController::class, 'show'])->name('employees.show');
+Route::get('/employees/show/{id}/{daysInfoDate}',[EmployeesController::class, 'show'])->name('employees.show');
 Route::get('/employees/create', [EmployeesController::class, 'create'])->name('employees.create');
 Route::post('/employees/store', [EmployeesController::class, 'store'])->name('employees.store');
 Route::get('/employees/edit/{id}', [EmployeesController::class, 'edit'])->name('employees.edit');

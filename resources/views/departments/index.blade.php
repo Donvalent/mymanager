@@ -20,6 +20,7 @@
             <td>{{ $department->users()->count() }}</td>
             {{-- TODO: Реализовать вывод максимальной зарплаты каждого отдела --}}
 {{--            <td> {{ $department->users->position->max('salary') }} руб</td>--}}
+            <td></td>
             <td><a href="#"><i class="fa fa-minus-circle"></i></a></td>
         </tr>
         @endforeach

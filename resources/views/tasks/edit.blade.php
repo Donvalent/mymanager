@@ -1,43 +1,43 @@
-<!-- Header -->
-<?php  include_once(ROOT . '/view/layouts/header.html'); ?>
+<!-- Extends -->
+@extends('layouts.app')
 
-<!-- Main -->
-<form action="#" method="post">
-    <!-- Название -->
-    <div class="col-lg-2 col-md-2 col-sm form-group text-center">
-        <input type="text" name="title" placeholder="Название..." value="<?php echo $task['title']; ?>" required>
-    </div>
-    <!-- Статус -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <select class="selectpicker" name="status" id="Select1" required>
-            <option <?php if($task['status']['title'] == 'Не выполнено'){ echo 'selected'; } ?>>Не выполнено</option>
-            <option <?php if($task['status']['title'] == 'Выполняется'){ echo 'selected'; } ?>>Выполняется</option>
-            <option <?php if($task['status']['title'] == 'Выполнено'){ echo 'selected'; } ?>>Выполнено</option>
-        </select>
-    </div>
-    <!-- Сотрудник -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <select class="selectpicker" name="worker" id="Select1" required>
-        <?php foreach($employeesList as $employees => $employee):?>
-            <option <?php if($employee['id'] == $task['worker']['id']){ echo 'selected'; } ?>><?php echo $employee['surname'] . " " . $employee['name'] . " " . $employee['lastname']; ?></option>
-        <?php endforeach;?>
-        </select>
-    </div>
-    <!-- Описание -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="description" placeholder="Описание..." value="<?php echo $task['description']; ?>" required>
-    </div>
-    <!-- Даты -->
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="date" placeholder="Дата начала..." value="<?php echo $task['date']; ?>" required>
+<!-- Body -->
+@section('content')
+
+    <div class="container">
+        <h3>Редактирование задачи</h3>
+        <div class="row">
+            <div class="col-md-12">
+                {!! Form::open(['route' => ['tasks.update', $task->id], 'method' => 'PUT']) !!}
+                    @csrf
+                    <div class="form-group">
+                        <input value="{{ $task->title }}" type="text" class="form-control" name="title" placeholder="Название..."><br>
+                        <textarea type="text" class="form-control" name="description" placeholder="Описание...">{{ $task->description }}</textarea><br>
+                        <select class="selectpicker" name="status" id="status">
+                            <option value="Выполнено" @if($task->status == 'Выполнено') selected @endif>Выполнено</option>
+                            <option value="Не выполнено" @if($task->status == 'Не выполнено') selected @endif>Не выполнено</option>
+                            <option value="В работе" @if($task->status == 'В работе') selected @endif>В работе</option>
+                            <option value="Приостановленно" @if($task->status == 'Приостановленно') selected @endif>Приостановленно</option>
+                        </select><br><br>
+                        <select name="employees[]" id="EmployeesMultiplie" class="selectpicker" multiple required>
+                            @foreach($employees as $employee)
+                                <option
+                                    @foreach($task->users as $taskEmployee)
+                                        @if($employee->id == $taskEmployee->id)
+                                            selected
+                                        @endif
+                                    @endforeach value="{{ $employee->id }}">{{ $employee->name }}</option>
+                            @endforeach
+                        </select><br><br>
+                        <div class="col-md-2">
+                            <p>Дата: </p><input value="{{ $task->date }}" type="date" name="date" class="form-control"><br>
+                            <p>Срок выполнения: </p><input value="{{ $task->deadline }}" type="date" name="deadline" class="form-control"><br>
+                        </div>
+                        <button class="btn btn-warning">Обновить</button>
+                    </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-12 form-group text-center">
-        <input type="text" name="deadline" placeholder="Дата сдачи..." value="<?php echo $task['deadline']; ?>" required>
-    </div>
-
-    <button class="btn btn-primary" type="submit" name="submit">Обновить</button>
-</form>
-
-<!-- Footer -->
-<?php  include_once(ROOT . '/view/layouts/footer.html'); ?>
+@endsection

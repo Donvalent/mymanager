@@ -76,7 +76,7 @@ class Employee extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany(Task::class, 'users_tasks');
+        return $this->belongsToMany(Department::class, 'users_tasks', 'employee_id');
     }
 
     /**
@@ -86,6 +86,6 @@ class Employee extends Model
      */
     public function days_info()
     {
-        return $this->hasMany(Days_info::class);
+        return $this->hasMany(Days_info::class, 'user_id', 'id');
     }
 }

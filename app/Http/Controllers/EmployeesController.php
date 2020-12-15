@@ -7,12 +7,17 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Position;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class EmployeesController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Method for /employees route
      *
@@ -32,9 +37,20 @@ class EmployeesController extends Controller
      *
      * @return View
      */
-    public function show(int $id) : View
+    public function show(int $id, Request $request) : View
     {
+        $daysInfoDate = date("Y-m-d");
+
+        if ($request->has('date'))
+            $daysInfoDate = request()->get('date');
+
         $employee = Employee::with('position', 'departments')->find($id);
+        $employee->load(["days_info" => function($q) use($daysInfoDate){
+            $q->where('date', '=', $daysInfoDate);
+        }]);
+
+        foreach ($employee->days_info as $day_info)
+            $day_info->info = json_decode($day_info->info, true);
 
         return view('employees/show', [
             'employee' => $employee,
@@ -154,7 +170,9 @@ class EmployeesController extends Controller
      */
     public function destroy(int $employeeId) : RedirectResponse
     {
-        $employee = Employee::find($employeeId)->delete();
+        $employee = Employee::find($employeeId);
+        $employee->position()->delete();
+        $employee->delete();
         return redirect()->route('employees.index');
     }
 }

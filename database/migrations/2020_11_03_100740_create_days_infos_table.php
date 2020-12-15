@@ -16,7 +16,7 @@ class CreateDaysInfosTable extends Migration
         Schema::create('days_infos', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->json('info');
-            $table->timestamps();
+            $table->date('date');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

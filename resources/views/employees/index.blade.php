@@ -28,6 +28,7 @@
                 @foreach($employee->departments as $department)
                 <a href="{{ route('departments.show', $department->id) }}">
                     {{ $department->title }}
+                    @if(!$loop->last) , @endif
                 </a>
                 @endforeach
             </td>

@@ -15,8 +15,8 @@
 
                     <label for="gender">Пол</label>
                     <select class="selectpicker" name="gender" id="gender" required>
-                        <option @if ($employee->gender == 'Male') selected @endif value="Мужчина">Мужчина</option>
-                        <option @if ($employee->gender == 'Female') selected @endif value="Женщина">Женщина</option>
+                        <option @if ($employee->gender == 'Мужчина') selected @endif value="Мужчина">Мужчина</option>
+                        <option @if ($employee->gender == 'Женщина') selected @endif value="Женщина">Женщина</option>
                     </select><br><br>
 
                     <input value="{{ $employee->email }}" type="text" class="form-control" name="email" placeholder="email..."><br>

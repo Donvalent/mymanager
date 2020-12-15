@@ -70,7 +70,7 @@ class User extends Authenticatable
      */
     public function task()
     {
-        return $this->belongsToMany(Task::class, 'users_tasks');
+        return $this->belongsToMany(Department::class, 'users_tasks', 'employee_id');
     }
 
     /**

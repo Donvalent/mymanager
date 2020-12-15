@@ -25,14 +25,15 @@ class TaskFactory extends Factory
             'Выполнено',
             'В работе',
             'Не выполнено',
+            'Приостановленно',
         ];
 
         return [
-            'title' => $this->faker->title(),
-            'description' => $this->faker->title(),
+            'title' => $this->faker->text(20),
+            'description' => $this->faker->text(),
             'date' => $this->faker->date(),
             'deadline' => $this->faker->dateTimeThisMonth(),
-            'status' => array_rand($status)
+            'status' => $status[array_rand($status)]
         ];
     }
 }
