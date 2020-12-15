@@ -41,13 +41,11 @@ class EmployeesController extends Controller
     {
         $daysInfoDate = date("Y-m-d");
 
-        if ($request->has('date'))
-            $daysInfoDate = request()->get('date');
+//        if ($request->has('date'))
+//            $daysInfoDate = request()->get('date');
 
-        $employee = Employee::with('position', 'departments')->find($id);
-        $employee->load(["days_info" => function($q) use($daysInfoDate){
-            $q->where('date', '=', $daysInfoDate);
-        }]);
+
+        $employee = Employee::with('position', 'departments', 'days_info')->find($id);
 
         foreach ($employee->days_info as $day_info)
             $day_info->info = json_decode($day_info->info, true);

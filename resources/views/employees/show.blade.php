@@ -29,24 +29,32 @@
             <button class="btn btn-success" type="submit">Показать</button>
         {!! Form::close() !!}<br>
         <!-- Table of day info -->
-            <table class="table">
-                <thead>
-                <tr scope="col">
-                    <th scope="col">Программы</th>
-                    <th scope="col">Время</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($employee->days_info as $day_info)
-                        @foreach($day_info->info as $program => $time)
-                            <tr>
-                                <td>{{ $program }}</td>
-                                <td>{{ $time }} ч.</td>
-                            </tr>
-                        @endforeach
-                    @endforeach
-                </tbody>
-            </table>
+            {{-- TODO: Подгрузка данных через ajax --}}
+            @foreach($employee->days_info as $dayInfo)
+                <div class="row">
+                    <a class="btn btn-primary col-lg-12" data-toggle="collapse" href="#date{{ $dayInfo->date }}" role="button" aria-expanded="false">
+                        {{ $dayInfo->date }}
+                    </a>
+                </div>
+                <div class="collapse" id="date{{ $dayInfo->date }}">
+                    <table class="table">
+                        <thead>
+                        <tr scope="col">
+                            <th scope="col">Программы</th>
+                            <th scope="col">Время</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dayInfo->info as $program => $time)
+                                <tr>
+                                    <td>{{ $program }}</td>
+                                    <td>{{ $time }} ч.</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endforeach
         </div>
     </div>
 
